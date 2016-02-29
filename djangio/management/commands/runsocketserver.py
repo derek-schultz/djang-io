@@ -23,7 +23,9 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('addrport', nargs='?',
-                            help='Optional port number, or ipaddr:port')
+            help='Optional port number, or ipaddr:port')
+        parser.add_argument('--ipv6', '-6', action='store_true', dest='use_ipv6', default=False,
+            help='Tells Django to use an IPv6 address.')
 
     def handle(self, *args, **options):
         from django.conf import settings
