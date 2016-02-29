@@ -1,5 +1,6 @@
 import eventlet
 import re
+import socket
 import socketio
 from django.apps.config import AppConfig
 from django.conf import settings
