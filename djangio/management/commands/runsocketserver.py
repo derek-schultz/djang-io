@@ -26,6 +26,15 @@ class Command(BaseCommand):
                             help='Optional port number, or ipaddr:port')
 
     def handle(self, *args, **options):
+        from django.conf import settings
+
+        if not settings.DEBUG and not settings.ALLOWED_HOSTS:
+            raise CommandError('You must set settings.ALLOWED_HOSTS if DEBUG is False.')
+
+        self.use_ipv6 = options.get('use_ipv6')
+        if self.use_ipv6 and not socket.has_ipv6:
+            raise CommandError('Your Python does not support IPv6.')
+        self._raw_ipv6 = False
         if not options.get('addrport'):
             self.addr = ''
             self.port = self.default_port
@@ -40,8 +49,13 @@ class Command(BaseCommand):
             if self.addr:
                 if _ipv6:
                     self.addr = self.addr[1:-1]
+                    self.use_ipv6 = True
+                    self._raw_ipv6 = True
                 elif self.use_ipv6 and not _fqdn:
                     raise CommandError('"%s" is not a valid IPv6 address.' % self.addr)
+        if not self.addr:
+            self.addr = '::1' if self.use_ipv6 else '127.0.0.1'
+            self._raw_ipv6 = bool(self.use_ipv6)
 
         self._load_all_socket_listeners()
         app = socketio.Middleware(listener)
