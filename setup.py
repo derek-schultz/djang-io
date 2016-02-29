@@ -3,7 +3,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="djang-io",
-    version="0.3",
+    version="0.5",
     description="SocketIO integration for Django",
     author="Derek Schultz and D. P. Bulger",
     author_email='derek@quiet.af',

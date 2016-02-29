@@ -62,7 +62,7 @@ class Command(BaseCommand):
 
         self._load_all_socket_listeners()
         app = socketio.Middleware(listener)
-        eventlet.wsgi.server(eventlet.listen((self.addr, self.port)), app)
+        eventlet.wsgi.server(eventlet.listen((self.addr, int(self.port))), app)
 
     def _load_all_socket_listeners(self):
         for app in settings.INSTALLED_APPS:
