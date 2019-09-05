@@ -65,9 +65,12 @@ class Command(BaseCommand):
         eventlet.wsgi.server(eventlet.listen((self.addr, int(self.port))), app)
 
     def _load_all_socket_listeners(self):
+        import importlib
         for app in settings.INSTALLED_APPS:
-            app_config = AppConfig.create(app)
+            
             try:
-                from app_config.module import sockets
+                app_config = AppConfig.create(app)
+                importlib.import_module(".sockets",app_config.name)
+                # from app_config.module import sockets  #It's error!
             except ImportError:
                 pass
