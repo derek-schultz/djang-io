@@ -15,7 +15,7 @@ setup(
         "Django",
         "eventlet==0.17.4",
         "greenlet==0.4.9",
-        "python-engineio==0.7.0",
+        "python-engineio==3.8.2.post1",
         "python-socketio==0.6.0",
         "six==1.10.0",
     ],
