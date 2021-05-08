@@ -13,7 +13,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         "Django",
-        "eventlet==0.17.4",
+        "eventlet==0.31.0",
         "greenlet==0.4.9",
         "python-engineio==0.7.0",
         "python-socketio==0.6.0",
